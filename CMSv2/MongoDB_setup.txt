@@ -1,0 +1,21 @@
+open all port for 27017
+netsh advfirewall firewall add rule name="Open mongod port 27017" dir=in action=allow protocol=TCP localport=27017
+
+edit mongod.cfg configuration file
+# network interfaces
+net:
+  
+port: 27017
+  
+bindIp: 127.0.0.1,124.217.248.81
+
+Create Users
+
+>
+use admin
+db.createUser({user: "superuser", pwd: "PassW0rd", roles: ["root"]})
+
+restart db
+
+connection string as follows
+mongodb://username:password@124.217.248.81:27017/?authSource=admin
